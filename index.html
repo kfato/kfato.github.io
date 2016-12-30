@@ -49,7 +49,7 @@
 </div>
   
   <div class='social_share_buttons'>
-	<a class='social_link' href='https://www.facebook.com/sharer.php?u=' id='facebook_link_share' onclick='myfunction()' target='_blank'><i aria-hidden='true' class='fa fa-facebook'/> Share</a>
+	<a class='social_link' href='https://www.facebook.com/sharer.php?u=' id='facebook_link_share' onclick='myfunction()' target='_blank'><i aria-hidden='true' class='fa fa-facebook'></i> Share</a>
 	<a class='social_link' href='https://twitter.com/share?url=' id='twitter_link_share' onclick='myfunction()' target='_blank'><i aria-hidden='true' class='fa fa-twitter'/> share</a>
 	<a class='social_link' href='https://www.reddit.com/submit?url=' id='google_plus_link_share' onclick='myfunction()' target='_blank'><i aria-hidden='true' class='fa fa-google-plus'/> share</a>
 	<a class='social_link' href='https://www.linkedin.com/shareArticle?url=' id='linkedin_link_share' onclick='myfunction()' target='_blank'><i aria-hidden='true' class='fa fa-linkedin'/> share</a>
@@ -66,6 +66,16 @@ function myFunction() {
         x.className = "topnav";
     }
 }
+	
+	function myfunction(argument) {
+		let x = document.getElementsByClassName('social_link');
+		console.log(x.length);
+		for (var i = x.length - 1; i &gt;= 0; i--)
+        {
+		x[i].href += window.location.href;
+	    }
+		
+	}
 </script>
 
 </body>
