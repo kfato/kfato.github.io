@@ -80,7 +80,7 @@ System.out.println("Exception caught="+e.getMessage());
 </pre>
 	
 	<h3>ExNo:7                                                    Analyze a program to write a Telnet Client</h3>
-<code>
+<pre>
 Server:
 import java.lang.*;
 import java.io.*;
@@ -110,8 +110,35 @@ System.out.println(e);
 }
 
 
+Client:
+import java.net.*;
+import java.io.*;
+class Telnetclient{
+public static void main(String args[])throws Exception{
+Socket soc=new Socket("localhost",8088);
+String Command;
+DataInputStream din=new DataInputStream(soc.getInputStream());
+DataOutputStream dout=new DataOutputStream(soc.getOutputStream());
+BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+System.out.println("Welcome to Telnet Client");
+System.out.println("<Telnet prompt>");
+Command=br.readLine();
+dout.writeUTF(Command);
+System.out.println(din.readLine());
+soc.close();
+din.close();
+dout.close();
+br.close();
+}}
+OUTPUT:
+Server:
+javac TelnetServer.java
+java TelnetServer
+Clinet Connected!
+String:Hello Client!!
 
-</code>
+
+</pre>
 
 
 </div>
