@@ -50,6 +50,8 @@ OUTPUT:
 Host name is www.yahoo.com
 Port no is -1
 Protocol used is http
+
+
   </pre>
 	
 	<h3>Ex:No:2                                             Demonstrate program to manipulate the IP Address</h3>
@@ -137,9 +139,266 @@ java TelnetServer
 Clinet Connected!
 String:Hello Client!!
 
+Client:
+javac TelnetClient.java
+java TelnetClient
+Welcome to Telnet Client
+<Telnet Prompt>
+1
+Hello Client!!
 
 </pre>
 
+<h3>ExNo:9.a             Implement a program using RMI application to add and subtract a given pair of integer</h3>
+
+<pre>
+Interface class
+import java.rmi.*;
+public interface AddRemote extends Remote
+{
+public int add(int a,int b)throws RemoteException;
+public int sub(int c,int d)throws RemoteException;
+}
+Implementation class
+import java.rmi.*;
+import java.rmi.server.UnicastRemoteObject;
+public class AddImpl extends UnicastRemoteObject implements AddRemote
+{
+public AddImpl() throws RemoteException
+{
+}
+public int add(int x,int y)throws RemoteException
+{
+return x+y;
+}
+public int sub(int r,int s)throws RemoteException
+{
+return r-s;
+}
+}
+Server class
+import java.rmi.*;
+public class AddServer{
+public static void main(String args[])throws Exception{
+try{
+AddImpl ob=new AddImpl();
+Naming.rebind("AddServer",ob);
+}
+catch(Exception e)
+{
+System.out.println(e);
+}
+}
+}
+Client class
+import java.rmi.*;
+public class AddClient{
+public static void main(String args[])throws Exception{
+try{
+int a=Integer.parseInt(args[1]);
+int b=Integer.parseInt(args[2]);
+int c=Integer.parseInt(args[3]);
+int d=Integer.parseInt(args[4]);
+System.out.println("value1="+a);
+System.out.println("value2="+b);
+System.out.println("value3="+c);
+System.out.println("value4="+d);
+String url1="rmi://"+args[0]+"/AddServer";
+String url2="rmi://"+args[0]+"/AddServer";
+AddRemote ob1=(AddRemote)Naming.lookup(url1);
+AddRemote ob2=(AddRemote)Naming.lookup(url2);
+int res=ob1.add(a,b);
+int res1=ob2.sub(c,d);
+System.out.println("Result="+res);
+System.out.println("Result="+res1);
+}
+catch(Exception e)
+{
+}
+}
+}
+
+
+OUTPUT:
+Server
+javac AddRemote.java
+javac AddImpl.java
+javac AddServer.java
+rmic AddImpl
+start rmiregistry
+java AddServer
+
+Client
+javac AddClient.java
+java AddClient 192.168.100.99  5 4 7 4
+Value1=5	
+Value2=4
+Value3=7
+Value4=4
+Result=9
+Result=3	
+
+</pre>
+
+<h3>ExNo:9.b          Implement a program using RMI application to compute factorial of a given integer</h3>
+
+<pre>
+
+CODING:
+Interface class
+import java.rmi.*;
+public interface FactRemote extends Remote
+{
+public int fact(int a)throws RemoteException;
+}
+Implementation class
+import java.rmi.*;
+import java.rmi.server.UnicastRemoteObject;
+public class FactImpl extends UnicastRemoteObject implements factRemote
+{
+public factImpl() throws RemoteException
+{
+}
+public int fact(int x)throws RemoteException
+{
+Long f=1;
+For(int i=n;i>0;i--)
+F*=i;
+return f;
+}
+}
+Server class
+import java.rmi.*;
+public class factServer{
+public static void main(String args[])throws Exception{
+try{
+factImpl ob=new factImpl();
+Naming.rebind("factServer",ob);
+}
+catch(Exception e)
+{
+System.out.println(e);
+}
+}
+}
+Client class
+import java.rmi.*;
+public class factClient{
+public static void main(String args[])throws Exception{
+try{
+int a=Integer.parseInt(args[1]);
+System.out.println("value1="+a);
+String url1="rmi://"+args[0]+"/factServer";
+factRemote ob1=(factRemote)Naming.lookup(url1);
+int res=ob1.fact(a);
+System.out.println("Result="+res);
+}
+catch(Exception e)
+{
+}
+}
+}
+
+
+OUTPUT:
+Server
+javac factRemote.java
+javac factImpl.java
+javac factServer.java
+rmic factImpl
+start rmiregistry
+java factServer
+
+Client
+javac factClient.java
+java factClient 192.168.100.99  5 
+Value1=5	
+Result=120	
+
+
+</pre>
+
+
+
+
+
+
+
+<h3>Ex.No:10  To develop a java program using threads and mutexes</h3>
+<pre>
+import java.io.*;
+class numbers implements Runnable{
+Thread t;
+boolean running=true;
+public numbers(String name,int p){
+t=new Thread(this,name);
+t.setPriority(p);
+t.start();
+}
+public void run(){
+System.out.println("\n"+t+"start");
+for(int i=1;i<=5;i++){
+System.out.println(i);
+}
+System.out.println(t+"existing");
+}}
+class squareroot implements Runnable{
+Thread t;
+boolean running=true;
+public squareroot(String name,int p){
+t=new Thread(this,name);
+t.setPriority(p);
+t.start();
+}
+public void run(){
+System.out.println("\n"+t+"start");
+for(int i=1;i<=5;i++){
+System.out.println(i*i);
+}
+System.out.println(t+"existing");
+}}
+class ThreadPri{
+public static void main(String args[]){
+new numbers("Numbers HIGH PRIORITY",Thread.MAX_PRIORITY);
+new squareroot("Squareroot MIDDLE PRIORITY",Thread.NORM_PRIORITY);
+Thread t=Thread.currentThread();
+t.setPriority(Thread.MIN_PRIORITY);
+t.setName("cube low priority");
+System.out.println("\n"+t+"start");
+for(int i=1;i<=5;i++){
+System.out.println(i*i*i);
+}
+System.out.println(t+"existing");
+}}
+
+
+
+
+
+
+OUTPUT:
+Thread[Numbers HIGH PRIORITY,10,main]start
+1
+2
+3
+4
+5
+Thread[Numbers HIGH PRIORITY,10,main]existing
+Thread[Squareroot MIDDLEPRIORITY,5,main]start
+1
+4
+9
+16
+25
+Thread[Squareroot MIDDLEPRIORITY,5,main]existing
+Thread[cube  low priority,1,main]start
+1
+8
+27
+64
+125
+Thread[cube  low priority,1,main]existing
+</pre>
 
 </div>
   
