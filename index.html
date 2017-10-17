@@ -22,7 +22,7 @@
 
 <div style="padding-left:16px">
 	
- ExNo:1                             <h3>Program to obtain the information about the [A]Host [B]Network  </h3>   <br>                                                                          [C]Protocols [D]Domains
+ <h1>ExNo:1 </h1>                            <h3>Program to obtain the information about the [A]Host [B]Network  </h3>   <br>                                                                          [C]Protocols [D]Domains
 
 <pre>
 CODING:
@@ -54,32 +54,7 @@ Protocol used is http
 
   </pre>
 	
-	<h3>Ex:No:2                                             Demonstrate program to manipulate the IP Address</h3>
-<pre>
-CODING:
-import java.util.*;
-import java.lang.*;
-import java.net.*;
-public class getOwnIP{
-public static void main(String args[])throws UnknownHostException{
-try{
-InetAddress IPO=InetAddress.getLocalHost();
-System.out.println("IP of the system="+IPO.getHostAddress());
-System.out.println("Canonical Hostname="+IPO.getCanonicalHostName());
-System.out.println("Hostname ="+IPO.getHostName());
-System.out.println("AllByName="+IPO.getAllByName(IPO.getHostName()));
-System.out.println("Loopback Address="+IPO.getLoopbackAddress());
-System.out.println("Address="+IPO.getAddress());
-System.out.println("isAnyLocal Address="+IPO.isAnyLocalAddress());
-System.out.println("isMulticast Address="+IPO.isMulticastAddress());
-}
-catch(Exception e)
-{
-System.out.println("Exception caught="+e.getMessage());
-}
-}
-}
-</pre>
+
 	
 	<h3>ExNo:7                                                    Analyze a program to write a Telnet Client</h3>
 <pre>
@@ -112,7 +87,7 @@ System.out.println(e);
 }
 
 
-Client:
+<h1>Client:</h1>
 import java.net.*;
 import java.io.*;
 class Telnetclient{
