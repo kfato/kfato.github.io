@@ -1,414 +1,68 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>kfato</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="/css/main.css">
-  <script src='https://use.fontawesome.com/ab4ab23ebb.js'></script>
-</head>
-<body>
-<header>
-  <h1>KFATO</h1>
-</header>
-<ul class="topnav" id="myTopnav">
-  <li><a class="active" href="#home">Home</a></li>
-  <li><a href="#news">News</a></li>
-  <li><a href="#contact">Contact</a></li>
-  <li><a href="#about">About</a></li>
-  <li class="icon">
-    <a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">☰</a>
-  </li>
-</ul>
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>KFATO</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Home</title>
+  </head>
+  <style>
+  .slider{
+    height: 85vh !important;
+  }
+  .slides{
+    height: 80vh !important;
+  }
+  </style>
+  <body>
 
-<div style="padding-left:16px">
-	
- <h1>ExNo:1 </h1>                            <h3>Program to obtain the information about the [A]Host [B]Network  </h3>   <br>                                                                          [C]Protocols [D]Domains
+    <nav>
+      <div class="nav-wrapper">
+        <a href="index.html" class="brand-logo">KFATO</a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li class="active"><a href="index.html">Home</a></li>
+          <li><a href="gov.html">Government portals</a></li>
+          <li><a href="blood.html">Blood Donor</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+          <li class="active"><a href="index.html">Home</a></li>
+          <li><a href="gov.html">Government portals</a></li>
+          <li><a href="blood.html">Blood Donor</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+    </nav>
 
-<pre>
-CODING:
-import java.lang.*;
-import java.io.*;
-
-class udl{
-public static void main(String args[])throws MalformedURLException{
-URL url=new URL("http://www.yahoo.com");
-try{
-System.out.println("Host name is"+url.getHost());
-System.out.println("Port no is"+url.getPort());
-System.out.println("Protocol used is"+url.getProtocol());
-
-
-
-}
-catch(Exception e)
-{
-System.out.println("Error="+e);
-}
-}
-}
-
-
-
-OUTPUT:
-Host name is www.yahoo.com
-Port no is -1
-Protocol used is http
-
-
-  </pre>
-	
-
-	
-	<h3>ExNo:7                                                    Analyze a program to write a Telnet Client</h3>
-<pre>
-Server:
-import java.lang.*;
-import java.io.*;
-import java.net.*;
-class Telnetserver{
-public static void main(String args[]){
-String data="Hello Client!!";
-try{
-ServerSocket srvr=new ServerSocket(8088);
-Socket skt=srvr.accept();
-System.out.println("Client Connected!");
-PrintWriter out=new PrintWriter(skt.getOutputStream(),true);
-DataInputStream din=new DataInputStream(skt.getInputStream());
-if(din.readUTF().equals("1")){
-System.out.println("String:"+data);
-out.print(data);
-}
-out.close();
-skt.close();
-srvr.close();
-din.close();
-}
-catch(Exception e){
-System.out.println(e);
-}
-}
-}
-
-
-<h1>Client:</h1>
-import java.net.*;
-import java.io.*;
-class Telnetclient{
-public static void main(String args[])throws Exception{
-Socket soc=new Socket("localhost",8088);
-String Command;
-DataInputStream din=new DataInputStream(soc.getInputStream());
-DataOutputStream dout=new DataOutputStream(soc.getOutputStream());
-BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-System.out.println("Welcome to Telnet Client");
-System.out.println("<Telnet prompt>");
-Command=br.readLine();
-dout.writeUTF(Command);
-System.out.println(din.readLine());
-soc.close();
-din.close();
-dout.close();
-br.close();
-}}
-OUTPUT:
-Server:
-javac TelnetServer.java
-java TelnetServer
-Clinet Connected!
-String:Hello Client!!
-
-Client:
-javac TelnetClient.java
-java TelnetClient
-Welcome to Telnet Client
-<Telnet Prompt>
-1
-Hello Client!!
-
-</pre>
-
-<h3>ExNo:9.a             Implement a program using RMI application to add and subtract a given pair of integer</h3>
-
-<pre>
-Interface class
-import java.rmi.*;
-public interface AddRemote extends Remote
-{
-public int add(int a,int b)throws RemoteException;
-public int sub(int c,int d)throws RemoteException;
-}
-Implementation class
-import java.rmi.*;
-import java.rmi.server.UnicastRemoteObject;
-public class AddImpl extends UnicastRemoteObject implements AddRemote
-{
-public AddImpl() throws RemoteException
-{
-}
-public int add(int x,int y)throws RemoteException
-{
-return x+y;
-}
-public int sub(int r,int s)throws RemoteException
-{
-return r-s;
-}
-}
-Server class
-import java.rmi.*;
-public class AddServer{
-public static void main(String args[])throws Exception{
-try{
-AddImpl ob=new AddImpl();
-Naming.rebind("AddServer",ob);
-}
-catch(Exception e)
-{
-System.out.println(e);
-}
-}
-}
-Client class
-import java.rmi.*;
-public class AddClient{
-public static void main(String args[])throws Exception{
-try{
-int a=Integer.parseInt(args[1]);
-int b=Integer.parseInt(args[2]);
-int c=Integer.parseInt(args[3]);
-int d=Integer.parseInt(args[4]);
-System.out.println("value1="+a);
-System.out.println("value2="+b);
-System.out.println("value3="+c);
-System.out.println("value4="+d);
-String url1="rmi://"+args[0]+"/AddServer";
-String url2="rmi://"+args[0]+"/AddServer";
-AddRemote ob1=(AddRemote)Naming.lookup(url1);
-AddRemote ob2=(AddRemote)Naming.lookup(url2);
-int res=ob1.add(a,b);
-int res1=ob2.sub(c,d);
-System.out.println("Result="+res);
-System.out.println("Result="+res1);
-}
-catch(Exception e)
-{
-}
-}
-}
-
-
-OUTPUT:
-Server
-javac AddRemote.java
-javac AddImpl.java
-javac AddServer.java
-rmic AddImpl
-start rmiregistry
-java AddServer
-
-Client
-javac AddClient.java
-java AddClient 192.168.100.99  5 4 7 4
-Value1=5	
-Value2=4
-Value3=7
-Value4=4
-Result=9
-Result=3	
-
-</pre>
-
-<h3>ExNo:9.b          Implement a program using RMI application to compute factorial of a given integer</h3>
-
-<pre>
-
-CODING:
-Interface class
-import java.rmi.*;
-public interface FactRemote extends Remote
-{
-public int fact(int a)throws RemoteException;
-}
-Implementation class
-import java.rmi.*;
-import java.rmi.server.UnicastRemoteObject;
-public class FactImpl extends UnicastRemoteObject implements factRemote
-{
-public factImpl() throws RemoteException
-{
-}
-public int fact(int x)throws RemoteException
-{
-Long f=1;
-For(int i=n;i>0;i--)
-F*=i;
-return f;
-}
-}
-Server class
-import java.rmi.*;
-public class factServer{
-public static void main(String args[])throws Exception{
-try{
-factImpl ob=new factImpl();
-Naming.rebind("factServer",ob);
-}
-catch(Exception e)
-{
-System.out.println(e);
-}
-}
-}
-Client class
-import java.rmi.*;
-public class factClient{
-public static void main(String args[])throws Exception{
-try{
-int a=Integer.parseInt(args[1]);
-System.out.println("value1="+a);
-String url1="rmi://"+args[0]+"/factServer";
-factRemote ob1=(factRemote)Naming.lookup(url1);
-int res=ob1.fact(a);
-System.out.println("Result="+res);
-}
-catch(Exception e)
-{
-}
-}
-}
-
-
-OUTPUT:
-Server
-javac factRemote.java
-javac factImpl.java
-javac factServer.java
-rmic factImpl
-start rmiregistry
-java factServer
-
-Client
-javac factClient.java
-java factClient 192.168.100.99  5 
-Value1=5	
-Result=120	
-
-
-</pre>
-
-
-
-
-
-
-
-<h3>Ex.No:10  To develop a java program using threads and mutexes</h3>
-<pre>
-import java.io.*;
-class numbers implements Runnable{
-Thread t;
-boolean running=true;
-public numbers(String name,int p){
-t=new Thread(this,name);
-t.setPriority(p);
-t.start();
-}
-public void run(){
-System.out.println("\n"+t+"start");
-for(int i=1;i<=5;i++){
-System.out.println(i);
-}
-System.out.println(t+"existing");
-}}
-class squareroot implements Runnable{
-Thread t;
-boolean running=true;
-public squareroot(String name,int p){
-t=new Thread(this,name);
-t.setPriority(p);
-t.start();
-}
-public void run(){
-System.out.println("\n"+t+"start");
-for(int i=1;i<=5;i++){
-System.out.println(i*i);
-}
-System.out.println(t+"existing");
-}}
-class ThreadPri{
-public static void main(String args[]){
-new numbers("Numbers HIGH PRIORITY",Thread.MAX_PRIORITY);
-new squareroot("Squareroot MIDDLE PRIORITY",Thread.NORM_PRIORITY);
-Thread t=Thread.currentThread();
-t.setPriority(Thread.MIN_PRIORITY);
-t.setName("cube low priority");
-System.out.println("\n"+t+"start");
-for(int i=1;i<=5;i++){
-System.out.println(i*i*i);
-}
-System.out.println(t+"existing");
-}}
-
-
-
-
-
-
-OUTPUT:
-Thread[Numbers HIGH PRIORITY,10,main]start
-1
-2
-3
-4
-5
-Thread[Numbers HIGH PRIORITY,10,main]existing
-Thread[Squareroot MIDDLEPRIORITY,5,main]start
-1
-4
-9
-16
-25
-Thread[Squareroot MIDDLEPRIORITY,5,main]existing
-Thread[cube  low priority,1,main]start
-1
-8
-27
-64
-125
-Thread[cube  low priority,1,main]existing
-</pre>
-
-</div>
-  
-  <div class='social_share_buttons'>
-	<a class='social_link' href='https://www.facebook.com/sharer.php?u=' id='facebook_link_share' onclick='myfunction()' target='_blank'><i aria-hidden='true' class='fa fa-facebook'></i> Share</a>
-	<a class='social_link' href='https://twitter.com/share?url=' id='twitter_link_share' onclick='myfunction()' target='_blank'><i aria-hidden='true' class='fa fa-twitter'></i> share</a>
-	<a class='social_link' href='https://www.reddit.com/submit?url=' id='google_plus_link_share' onclick='myfunction()' target='_blank'><i aria-hidden='true' class='fa fa-google-plus'></i> share</a>
-	<a class='social_link' href='https://www.linkedin.com/shareArticle?url=' id='linkedin_link_share' onclick='myfunction()' target='_blank'><i aria-hidden='true' class='fa fa-linkedin'></i> share</a>
-	<a class='social_link' href='https://www.reddit.com/submit?url=' id='reddit_link_share' onclick='myfunction()' target='_blank'><i aria-hidden='true' class='fa fa-reddit'></i> share</a>
-</div>
-
-<footer>kfat0</footer>
-<script>
-function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-        x.className += " responsive";
-    } else {
-        x.className = "topnav";
-    }
-}
-	
-	function myfunction(argument) {
-		let x = document.getElementsByClassName('social_link');
-		console.log(x.length);
-		for (var i = x.length - 1; i &gt;= 0; i--)
-        {
-		x[i].href += window.location.href;
-	    }
-		
-	}
-</script>
-
-</body>
-</html>
+    <div class="slider">
+      <ul class="slides">
+        <li>
+          <img src="s1.jpg">
+        </li>
+        <li>
+          <img src="aa.jpg">
+          <div class="caption left-align">
+            <h3>Promoting Volunteerism</h3>
+            </div>
+        </li>
+        <li>
+          <img src="aa1.jpg">
+          <div class="caption right-align">
+            <h3>The Highest of distinctions is service to others</h3>
+          </div>
+        </li>
+        <li>
+          <img src="aa.jpg">
+          <div class="caption center-align">
+            <h3>Kindness is the greatest wisdom!</h3>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/jss.js"></script>
+  </body>
+  </html>
